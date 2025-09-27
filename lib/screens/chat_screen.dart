@@ -38,13 +38,26 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           );
         }
+        final String statusText = thread.isExpired
+            ? 'Chat expired'
+            : 'Participants: ${thread.participants.join(', ')}';
         return Scaffold(
           appBar: AppBar(
-            title: Text(thread.title),
-            subtitle: Text(
-              thread.isExpired
-                  ? 'Chat expired'
-                  : 'Participants: ${thread.participants.join(', ')}',
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(thread.title),
+                Text(
+                  statusText,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onPrimary
+                            .withOpacity(0.72),
+                      ),
+                ),
+              ],
             ),
           ),
           body: Column(
