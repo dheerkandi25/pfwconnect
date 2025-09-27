@@ -20,6 +20,14 @@ class _ChatScreenState extends State<ChatScreen> {
   final TextEditingController _controller = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _controller.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -145,7 +153,9 @@ class _ChatScreenState extends State<ChatScreen> {
                                       sentAt: DateTime.now(),
                                     ),
                                   );
-                                  _controller.clear();
+                                  setState(() {
+                                    _controller.clear();
+                                  });
                                 },
                           child: const Icon(Icons.send),
                         ),
